@@ -63,12 +63,18 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
-
+DJANGO_SETTINGS_MODULE= 'project.settings'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('postgresql://db_e3h1_user:AhZvR4JNKtIJZHo2ZwDruojVZsUf6Hkk@dpg-ctr6hcl2ng1s73es1k10-a/db_e3h1'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_e3h1',
+        'USER': 'db_e3h1_user',
+        'PASSWORD': 'AhZvR4JNKtIJZHo2ZwDruojVZsUf6Hkk',
+        'HOST': 'dpg-ctr6hcl2ng1s73es1k10-a.oregon-postgres.render.com',
+        'PORT': '5432',
+    }
 }
 
 REST_FRAMEWORK = {
