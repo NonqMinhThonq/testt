@@ -10,12 +10,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=584ud6d8abh4=w+!6*71!k)03zt@y1wqpw-ohgrb5dcr(h^_a'
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-=584ud6d8abh4=w+!6*71!k)03zt@y1wqpw-ohgrb5dcr(h^_a')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['render.com', 'testt.onrender.com']
+
 
 # Application definition
 
@@ -67,14 +69,27 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.getenv('DB_NAME', 'api'),
+#         'USER': os.getenv('DB_USER', 'root'),
+#         'PASSWORD': os.getenv('DB_PASSWORD', 'minhthon9'),
+#         'HOST': os.getenv('DB_HOST', 'localhost'),
+#         'PORT': os.getenv('DB_PORT', '3306'),
+#     }
+# }
+
+# DATABASES['default'] = dj_database_url.parse('postgresql://db_e3h1_user:AhZvR4JNKtIJZHo2ZwDruojVZsUf6Hkk@dpg-ctr6hcl2ng1s73es1k10-a.oregon-postgres.render.com/db_e3h1')
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'api'),
-        'USER': os.getenv('DB_USER', 'root'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'minhthon9'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '3306'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_e3h1',
+        'USER': 'db_e3h1_user',
+        'PASSWORD': 'AhZvR4JNKtIJZHo2ZwDruojVZsUf6Hkk',
+        'HOST': 'dpg-ctr6hcl2ng1s73es1k10-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 
