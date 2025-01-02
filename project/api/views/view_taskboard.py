@@ -37,3 +37,16 @@ class TaskBoardViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({'message': f'TaskBoard {taskboard_id} has been deleted successfully'}, status=status.HTTP_200_OK)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            search_query = self.request.query_params.get('name', None)
+            if search_query:
+                search_terms = search_query.strip('"')
+                for term in search_terms.strip('"'):
+                    term = term.strip('"')
+                    page = [item for item in page if term.lower() in item.name.lower()]
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
